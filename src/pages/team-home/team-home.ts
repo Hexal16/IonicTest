@@ -21,11 +21,17 @@ export class TeamHomePage {
   teamDetailTab = TeamDetailPage;
   standingsTab = StandingsPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.team = this.navParams.data;
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
+    
   }
 
+  ionViewWillLoad()
+  {
+    console.log('ionViewWillLoad TeamHomePage');
+    this.team = this.navParams.data;
+  }
   ionViewDidLoad() {
+    this.team = this.navParams.data; 
     console.log('ionViewDidLoad TeamHomePage');
   }
 
