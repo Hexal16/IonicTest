@@ -14,6 +14,7 @@ export class TeamDetailPage {
 
   games : any[];
   team : any;
+  t : any;
 
   private tourneyData : any; 
   constructor(  
@@ -24,7 +25,7 @@ export class TeamDetailPage {
     console.log("navParams:", this.navParams);
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     
     this.team = this.navParams.data;
     console.log('ionViewDidLoad TeamDetailPage  this.navParams.data',  this.navParams.data);
@@ -52,6 +53,9 @@ export class TeamDetailPage {
                   }
                 })
                 .value();
+
+    this.t = _.find(this.tourneyData.standings, {'teamId':this.team.id});
+    console.log("stamdings??????", this.t);
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score)
