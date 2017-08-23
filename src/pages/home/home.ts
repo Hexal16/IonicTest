@@ -11,4 +11,9 @@ export class HomePage {
 
   }
 
+  sayHello()
+  {
+    console.log('Hello, worlf');
+  }
+
 }
