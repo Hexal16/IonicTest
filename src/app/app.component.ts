@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { MyTeamsPage, TournamentsPage, MapPage } from '../pages/pages'
+import { MyTeamsPage, TournamentsPage, MapPage, JsmapPage } from '../pages/pages'
 import { EliteApi } from './shared/shared'
 
 @Component({
@@ -48,5 +48,9 @@ export class MyApp {
   
   goToMap(){
       this.nav.push(MapPage);
+  }
+  
+  goToJsmap(){
+      this.nav.push(JsmapPage);
   }
 }
