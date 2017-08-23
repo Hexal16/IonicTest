@@ -17,6 +17,7 @@ import {TeamsPage} from '../pages/teams/teams';
 import {StandingsPage} from '../pages/standings/standings';
 import {TeamHomePage} from '../pages/team-home/team-home';
 import {MapPage} from '../pages/map/map';
+import {JsmapPage} from '../pages/jsmap/jsmap';
 // import { GamePage } from '../pages/game/game';
 
 import {StatusBar} from '@ionic-native/status-bar';
@@ -34,7 +35,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
         TeamsPage,
         StandingsPage,
         TeamHomePage,
-        MapPage
+        MapPage,
+        JsmapPage
     ],
     imports: [
         BrowserModule,
@@ -53,7 +55,8 @@ import {SplashScreen} from '@ionic-native/splash-screen';
         TeamsPage,
         StandingsPage,
         TeamHomePage,
-        MapPage
+        MapPage,
+        JsmapPage
     ],
     providers: [
         StatusBar,
