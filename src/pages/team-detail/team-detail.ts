@@ -45,7 +45,7 @@ export class TeamDetailPage {
                     gameId: g.Id,
                     opponent: opponentName,
                     time: Date.parse(g.time),
-                    location : g.location,
+                    3 : g.location,
                     locationUrl: g.locationUrl,
                     scoreDisplay: scoreDisplay,
                     homeAway: (isTeam1 ? "vs." : "at")
