@@ -13,6 +13,15 @@
     <ion-content padding>
     <p>You are currently not following any</p>
 
+    <ion-list>
+      <ion-list-header>Favourite teams</ion-list-header>
+      <button ion-item *ngFor="let item of favourites" (click)="favouriteTapped($event, item)"> 
+        <ion-icon name="star"></ion-icon>
+        {{item.team.name}}
+        <p>{{item.tournamentName}}</p>
+      </button>
+  </ion-list>
+
     <button ion-button (click)="goToTournaments()">Find a tournament</button>
     </ion-content>
     
