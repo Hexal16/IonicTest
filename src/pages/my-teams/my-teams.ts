@@ -35,6 +35,7 @@ export class MyTeamsPage {
 
   favouriteTapped($event, item)
   {
+    console.log("favourite team data", item.team);
     this.eliteApi.getTournamentData(item.tournamentId).subscribe(data => this.navCtrl.push(TeamHomePage, item.team));
   }
 }

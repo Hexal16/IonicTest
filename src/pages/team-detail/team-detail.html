@@ -11,20 +11,26 @@
         <ion-col>Record {{t.wins}} {{t.losses}}</ion-col>
         <ion-col>Coach {{team.name}}</ion-col>
       </ion-row>
+
+      <ion-item>
+        <ion-label>Date Filter:</ion-label>
+      <ion-toggle [(ngModel)]="useDateFilter" (ionChange)="dateChanged()" ></ion-toggle> 
+        <ion-datetime displayFormat="D/M/YYYY" pickerFormat="D/M/YYYY" [(ngModel)]="dateFilter" (ionChange)="dateChanged()" [(disabled)]="!useDateFilter"></ion-datetime>
+      </ion-item>
     </ion-card>
 
   <ion-list> 
     <ion-item *ngFor = "let g of games" (click)="gameClicked($event, g)"> 
         <ion-row>
-          <ion-col>
+          <ion-col item-width="20">
               <p>{{g.time | date:'M/d/yy'}}</p>
               <p>{{g.time | date:'shortTime'}}</p>
           </ion-col>
-          <ion-col>
+          <ion-col  item-width="60">
               <p>{{g.homeAway}} {{g.opponent}}</p>
               <p>{{g.location}}</p>
           </ion-col>
-          <ion-col>
+          <ion-col  item-width="20">
             <h4>{{g.scoreDisplay}}</h4>
           </ion-col>
         </ion-row>
