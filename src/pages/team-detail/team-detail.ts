@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {GamePage } from '../../pages/pages'
 
 import * as _ from 'lodash';
@@ -19,10 +19,13 @@ export class TeamDetailPage {
   team : any;
   t : any;
   useDateFilter = false;
+  IsFollowing = false;
 
   private tourneyData : any; 
   constructor(  
-              public navCtrl: NavController, 
+              public navCtrl: NavController,
+              public alertController: AlertController, 
+              public toastController: ToastController, 
               public navParams: NavParams,
               private eliteApi : EliteApi
             ) {
@@ -60,6 +63,8 @@ export class TeamDetailPage {
     this.allgames = this.games;
     this.t = _.find(this.tourneyData.standings, {'teamId':this.team.id});
     console.log("stamdings??????", this.t);
+    console.log("ALSO THE GAME STUFF", this.games);
+    console.log("ANf also the original game", this.tourneyData.games);
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score)
@@ -93,5 +98,55 @@ export class TeamDetailPage {
     }
     
   } 
+
+  getScoreWorL(game){
+    return game.scoreDisplay ? game.scoreDisplay[0] : 'NULL';
+  }
+
+  getScoreDisplayBadgeClass(g){
+
+    console.log("BADGE STUFF", g);
+    return g.scoreDisplay.indexOf('W:') === 0  ? "badge-primary" : "badge-danger";
+  }
+
+  toggleFollow(){
+    if(this.IsFollowing) {
+
+      let confirm = this.alertController.create({
+        title : "Unfollow?",
+        message : "Are you sure, you want to unfollow?",
+        buttons : [
+          {
+            text : "Yes",
+            handler: () => {
+              this.IsFollowing = false;
+              // TODO
+              let toast = this.toastController.create({
+                message : "You have unfollowed this team",
+                duration : 2000,
+                position : 'bottom'
+              });
+
+              toast.present();
+            }
+          },
+          {
+            text : "No"
+          }
+        ]
+      });
+
+      confirm.present();
+    } else {
+      this.IsFollowing  =true;
+      let toast = this.toastController.create({
+        message : "You are now following this team",
+        duration : 2000,
+        position : 'bottom'
+      });
+
+      toast.present();
+    }
+  }
 
 }

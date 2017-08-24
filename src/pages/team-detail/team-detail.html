@@ -10,6 +10,15 @@
       <ion-row>
         <ion-col>Record {{t.wins}} {{t.losses}}</ion-col>
         <ion-col>Coach {{team.name}}</ion-col>
+        <ion-col>
+          <button ion-button outline (click)="toggleFollow()" *ngIf="!IsFollowing">
+              <ion-icon name="star"></ion-icon>
+              Add favourite
+          </button>
+          <button ion-button outline (click)="toggleFollow()" *ngIf="IsFollowing">
+              <ion-icon name="star"></ion-icon>
+          </button>
+        </ion-col>
       </ion-row>
 
       <ion-item>
@@ -22,16 +31,17 @@
   <ion-list> 
     <ion-item *ngFor = "let g of games" (click)="gameClicked($event, g)"> 
         <ion-row>
-          <ion-col item-width="20">
+          <ion-col>
               <p>{{g.time | date:'M/d/yy'}}</p>
               <p>{{g.time | date:'shortTime'}}</p>
           </ion-col>
-          <ion-col  item-width="60">
+          <ion-col  >
               <p>{{g.homeAway}} {{g.opponent}}</p>
               <p>{{g.location}}</p>
           </ion-col>
-          <ion-col  item-width="20">
+          <ion-col >
             <h4>{{g.scoreDisplay}}</h4>
+            <ion-badge [class]="getScoreDisplayBadgeClass(g)" >{{getScoreWorL(g)}}</ion-badge> 
           </ion-col>
         </ion-row>
     </ion-item>
