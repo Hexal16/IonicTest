@@ -38,7 +38,7 @@ export class TeamDetailPage {
     this.team = this.navParams.data;
     console.log('ionViewDidLoad TeamDetailPage  this.navParams.data',  this.navParams.data);
     this.tourneyData = this.eliteApi.getCurrentTurney();
-
+    console.log("Getting tourney data", this.tourneyData)
     this.games = _.chain(this.tourneyData.games)
                 .filter(g => g.team1Id == this.team.id ||
                              g.team2Id == this.team.id
@@ -147,6 +147,13 @@ export class TeamDetailPage {
 
       toast.present();
     }
+  }
+
+  refreshAll(refresher){
+      this.eliteApi.refreshTournament().subscribe(() => {
+        refresher.complete();
+        this.ionViewWillLoad();
+      })
   }
 
 }
