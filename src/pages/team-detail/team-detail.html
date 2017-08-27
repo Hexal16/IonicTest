@@ -8,7 +8,7 @@
     
     <ion-card>
       <ion-row>
-        <ion-col>Record {{t.wins}} {{t.losses}}</ion-col>
+        <ion-col>Record {{teamStandings.wins}} {{teamStandings.losses}}</ion-col>
         <ion-col>Coach {{team.name}}</ion-col>
         <ion-col>
           <button ion-button outline (click)="toggleFollow()" *ngIf="!IsFollowing">

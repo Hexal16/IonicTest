@@ -22,7 +22,7 @@ import {JsmapPage} from '../pages/jsmap/jsmap';
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-
+import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
     declarations: [
         MyApp,
@@ -41,7 +41,11 @@ import {SplashScreen} from '@ionic-native/splash-screen';
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
-        HttpModule
+        HttpModule,
+        IonicStorageModule.forRoot({
+            name: '__mydb',
+               driverOrder: ['indexeddb', 'sqlite', 'websql']
+          })
     ],
     bootstrap: [IonicApp],
     entryComponents: [

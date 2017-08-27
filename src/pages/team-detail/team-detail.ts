@@ -4,7 +4,7 @@ import {GamePage } from '../../pages/pages'
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { EliteApi } from '../../app/shared/shared'
+import { EliteApi, UserSettings } from '../../app/shared/shared'
 
 @IonicPage()
 @Component({
@@ -17,7 +17,7 @@ export class TeamDetailPage {
   games : any[];
   allgames : any[];
   team : any;
-  t : any;
+  teamStandings : any;
   useDateFilter = false;
   IsFollowing = false;
 
@@ -27,7 +27,8 @@ export class TeamDetailPage {
               public alertController: AlertController, 
               public toastController: ToastController, 
               public navParams: NavParams,
-              private eliteApi : EliteApi
+              private eliteApi : EliteApi,
+              private userSettings : UserSettings
             ) {
     console.log("navParams:", this.navParams);
   }
@@ -61,10 +62,9 @@ export class TeamDetailPage {
                 })
                 .value();
     this.allgames = this.games;
-    this.t = _.find(this.tourneyData.standings, {'teamId':this.team.id});
-    console.log("stamdings??????", this.t);
-    console.log("ALSO THE GAME STUFF", this.games);
-    console.log("ANf also the original game", this.tourneyData.games);
+    this.teamStandings = _.find(this.tourneyData.standings, {'teamId':this.team.id});
+
+    this.userSettings.isFavouriteTeam(this.team).then(value => this.IsFollowing = value);
   }
 
   getScoreDisplay(isTeam1, team1Score, team2Score)
@@ -84,7 +84,6 @@ export class TeamDetailPage {
 
   gameClicked($event, g)
   {
-    console.log("GAME : ", g)
     this.navCtrl.parent.parent.push(GamePage, g)
   }
 
@@ -105,7 +104,6 @@ export class TeamDetailPage {
 
   getScoreDisplayBadgeClass(g){
 
-    console.log("BADGE STUFF", g);
     return g.scoreDisplay.indexOf('W:') === 0  ? "badge-primary" : "badge-danger";
   }
 
@@ -120,6 +118,7 @@ export class TeamDetailPage {
             text : "Yes",
             handler: () => {
               this.IsFollowing = false;
+              this.userSettings.unfavouriteTeam(this.team);
               // TODO
               let toast = this.toastController.create({
                 message : "You have unfollowed this team",
@@ -139,6 +138,7 @@ export class TeamDetailPage {
       confirm.present();
     } else {
       this.IsFollowing  =true;
+      this.userSettings.favouriteTeam(this.team, this.tourneyData.tournament.id, this.tourneyData.tournament.name);
       let toast = this.toastController.create({
         message : "You are now following this team",
         duration : 2000,
