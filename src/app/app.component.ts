@@ -5,11 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import {LoadingController } from 'ionic-angular';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { MyTeamsPage, TournamentsPage, MapPage, JsmapPage, TeamHomePage } from '../pages/pages'
+import { MyTeamsPage, TournamentsPage, JsmapPage, TeamHomePage } from '../pages/pages'
 import { EliteApi, UserSettings } from './shared/shared'
-import * as _ from 'lodash';
 
 @Component({
   templateUrl: 'app.html',
@@ -75,11 +72,7 @@ export class MyApp {
   goToTournaments(){
     this.nav.push(TournamentsPage)
   }
-  
-  goToMap(){
-      this.nav.push(MapPage);
-  }
-  
+    
   goToJsmap(){
       this.nav.push(JsmapPage);
   }
