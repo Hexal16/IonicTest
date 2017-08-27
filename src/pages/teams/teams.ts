@@ -23,6 +23,7 @@ export class TeamsPage {
   teams :any;
   allTeams : any;
   allTeamDivisions: any;
+  queryText = "";
   constructor(public navCtrl: NavController, public navParams: NavParams, private eliteApi: EliteApi) {
     this.eliteApi.getTournamentData(this.navParams.data.id).subscribe(data => 
       {
@@ -35,7 +36,7 @@ export class TeamsPage {
         .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
         .value();
         this.teams = this.allTeamDivisions;
-        console.log("REAL DATA constructor", this.teams);
+        console.log("REAL DATA constructor", this.teams );
         
       });
   }
@@ -59,6 +60,22 @@ export class TeamsPage {
 
   itemTapped($event, team){
     this.navCtrl.push(TeamHomePage, team)
+  }
+
+  updateTeams() {
+    let queryTextLower = this.queryText.toLowerCase();
+    let filteredItems = [];
+
+    _.forEach(this.allTeamDivisions, td => {
+      let teams = _.filter(td.divisionTeams, t => (<any>t).name.toLowerCase().includes(queryTextLower));
+      if(teams.length){
+
+        console.log("FOUND A TEAM ", td);
+        filteredItems.push({divisionName: td.divisionName, divisionTeams: teams});
+      }
+    });
+
+    this.teams = filteredItems;
   }
 
 }
