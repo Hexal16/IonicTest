@@ -14,7 +14,10 @@ import {MyTeamsPage} from '../pages/my-teams/my-teams';
 import {TeamsPage} from '../pages/teams/teams';
 import {StandingsPage} from '../pages/standings/standings';
 import {TeamHomePage} from '../pages/team-home/team-home';
-import {JsmapPage} from '../pages/jsmap/jsmap';
+import {JsmapPage} from '../pages/jsmap/jsmap'; 
+import {TeamMapPage} from '../pages/team-map/team-map'; 
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
 // import { GamePage } from '../pages/game/game';
 
 import {StatusBar} from '@ionic-native/status-bar';
@@ -30,7 +33,8 @@ import { IonicStorageModule } from '@ionic/storage';
         TeamsPage,
         StandingsPage,
         TeamHomePage,
-        JsmapPage
+        JsmapPage,
+        TeamMapPage
     ],
     imports: [
         BrowserModule,
@@ -39,7 +43,8 @@ import { IonicStorageModule } from '@ionic/storage';
         IonicStorageModule.forRoot({
             name: '__mydb',
                driverOrder: ['indexeddb', 'sqlite', 'websql']
-          })
+          }),
+          AgmCoreModule.forRoot({ apiKey: 'AIzaSyBbsOlMryAHu2ESwHHSwrDBIUU7fiENNoM'})
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -51,7 +56,8 @@ import { IonicStorageModule } from '@ionic/storage';
         TeamsPage,
         StandingsPage,
         TeamHomePage,
-        JsmapPage
+        JsmapPage,
+        TeamMapPage
     ],
     providers: [
         StatusBar,

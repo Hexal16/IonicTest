@@ -53,10 +53,13 @@ export class TeamDetailPage {
                     team2 : g.team2,
                     gameId: g.Id,
                     opponent: opponentName,
-                    time: Date.parse(g.time),
-                    3 : g.location,
+                    time: (g.time),
+                    locationId: g.locationId,
+                    location : g.location,
                     locationUrl: g.locationUrl,
                     scoreDisplay: scoreDisplay,
+                    team1Score: g.team1Score,
+                    team2Score: g.team2Score,
                     homeAway: (isTeam1 ? "vs." : "at")
                   }
                 })
@@ -84,6 +87,7 @@ export class TeamDetailPage {
 
   gameClicked($event, g)
   {
+    console.log("GAME data being passed --->", g)
     this.navCtrl.parent.parent.push(GamePage, g)
   }
 

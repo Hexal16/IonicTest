@@ -14,8 +14,49 @@
 
 
 <ion-content padding>
-<h3>Home Team</h3>
-<button ion-button (click)="teamClicked(game.team1Id)">{{game.team1}}</button>
-<h3>Away Team</h3>
-<button ion-button (click)="teamClicked(game.team2Id)">{{game.team2}}</button>
+<ion-row>
+  <ion-col width-50 text-center class="divider-col">
+    <button ion-button (click)="TeamTapped(game.team1Id)">Home</button>
+  </ion-col>
+  <ion-col width-50 text-center>
+    <button ion-button (click)="TeamTapped(game.team2Id)">Away</button>
+  </ion-col>
+</ion-row>
+<ion-row center>
+  <ion-col width-50 text-center class="divider-col" (click)="TeamTapped(game.team1Id)">
+    <h4>{{game.team1}}</h4>
+  </ion-col>
+<ion-col width-50 text-center class="divider-col" (click)="TeamTapped(game.team2Id)">
+  <h4>{{game.team2}}</h4>
+</ion-col>
+</ion-row>
+<ion-row baseline clas="top-bottom-border">
+  <ion-col text-center (click)=TeamTapped(game.team1Id)>
+    <h1 [class.primary-color]="isWinner(game.team1Score, game.team2Score)" >{{game.team1Score}}</h1>
+  </ion-col>
+  <ion-col text-center (click)=TeamTapped(game.team1Id)>
+    <h1 [class.primary-color]="isWinner(game.team2Score, game.team1Score)" >{{game.team2Score}}</h1>
+  </ion-col>
+</ion-row>
+<ion-card>
+  <ion-item>
+    <ion-icon name="calendar" item-left></ion-icon>
+     <ion-label item-width="100">{{game.time | date:'d/M/yy'}} {{game.time | date:'shortTime'}} </ion-label>
+  </ion-item>
+  
+</ion-card>
+
+    <ion-row>
+      <ion-col >
+        <ion-label>{{game.location}}</ion-label>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button (click)="goToMap()">
+          <ion-icon name="map"></ion-icon>
+        </button>
+        <button ion-button (click)="goToDirections()">
+          <ion-icon name="navigate"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
 </ion-content>

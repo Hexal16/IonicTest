@@ -18,6 +18,7 @@ import * as _ from 'lodash'
 export class StandingsPage {
 
   standings : any;
+  divisionFilter = 'division';
   team : any;
   allstandings : any[];
   constructor(
@@ -38,10 +39,18 @@ export class StandingsPage {
     //    .toPairs()
     //    .map(item => _.zipObject(['divisionName', 'divisionStandings'], item))
     //    .value();
-
+    this.allstandings = tourneyData.standings;
     console.log('standings:', this.standings); 
     this.allstandings = tourneyData.standings;
+    this.filterDivision();
+  }
 
+  filterDivision(){
+    if(this.divisionFilter === 'all'){
+      this.standings = this.allstandings;
+    } else {
+      this.standings = _.filter(this.allstandings, s=>s.division === this.team.division);
+    }
   }
 
   getHeader(record, recordIndex, records){
