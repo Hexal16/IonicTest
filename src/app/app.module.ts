@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {
     GoogleMaps
 } from '@ionic-native/google-maps';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import {MyApp} from './app.component';
 import {GamePage} from '../pages/game/game';
@@ -18,11 +19,13 @@ import {JsmapPage} from '../pages/jsmap/jsmap';
 import {TeamMapPage} from '../pages/team-map/team-map'; 
 import { AgmCoreModule } from 'angular2-google-maps/core';
 
-// import { GamePage } from '../pages/game/game';
+import { BaseClass } from '../pages/pages'
+
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -34,7 +37,8 @@ import { IonicStorageModule } from '@ionic/storage';
         StandingsPage,
         TeamHomePage,
         JsmapPage,
-        TeamMapPage
+        TeamMapPage,
+        BaseClass
     ],
     imports: [
         BrowserModule,
@@ -46,6 +50,7 @@ import { IonicStorageModule } from '@ionic/storage';
           }),
           AgmCoreModule.forRoot({ apiKey: 'AIzaSyBbsOlMryAHu2ESwHHSwrDBIUU7fiENNoM'})
     ],
+
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
@@ -57,13 +62,15 @@ import { IonicStorageModule } from '@ionic/storage';
         StandingsPage,
         TeamHomePage,
         JsmapPage,
-        TeamMapPage
+        TeamMapPage,
+        BaseClass
     ],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        GoogleMaps
+        GoogleMaps,
+        Storage
     ]
 })
 export class AppModule {}

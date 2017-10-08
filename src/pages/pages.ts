@@ -1,3 +1,4 @@
+export  * from './base-class/base-class'
 export  * from './my-teams/my-teams'
 export  * from './game/game'
 export  * from './team-detail/team-detail'

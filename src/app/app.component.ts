@@ -5,12 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import {LoadingController } from 'ionic-angular';
 
-import { MyTeamsPage, TournamentsPage, JsmapPage, TeamHomePage } from '../pages/pages'
+import { MyTeamsPage, TournamentsPage, JsmapPage, TeamHomePage, StandingsPage, GamePage } from '../pages/pages'
 import { EliteApi, UserSettings } from './shared/shared'
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
+import { Deeplinks } from '@ionic-native/deeplinks';
 @Component({
   templateUrl: 'app.html',
-  providers: [EliteApi, UserSettings]
+  providers: [EliteApi, UserSettings, Deeplinks]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -25,10 +27,24 @@ export class MyApp {
               private userSettings: UserSettings,
               private loadingController: LoadingController,
               private eliteApi: EliteApi,
-              private events: Events
+              private events: Events,
+              private deeplinks : Deeplinks
             ) {
     this.initializeApp();
-
+    deeplinks.route({
+      '/myTeam': MyTeamsPage,
+      '/tournaments': TournamentsPage,
+      '/standings': StandingsPage,
+      '/game': GamePage,
+    }).subscribe((match) => {
+      // match.$route - the route we matched, which is the matched entry from the arguments to route()
+      // match.$args - the args passed in the link
+      // match.$link - the full link data
+      console.log('!!!!!!!!!!!!!!1Successfully matched route', match);
+    }, (nomatch) => {
+      // nomatch.$link - the full link data
+      console.error('!!!!!!!!!!!!!!!!Got a deeplink that didn\'t match', nomatch);
+    });
   }
 
   initializeApp() {
@@ -39,6 +55,21 @@ export class MyApp {
       this.splashScreen.hide();
       this.refreshFavourites();
       this.events.subscribe('fav:changed',() => this.refreshFavourites());
+
+      this.deeplinks.routeWithNavController(this.nav, {
+        '/myTeam': MyTeamsPage,
+        '/tournaments': TournamentsPage,
+        '/standings': StandingsPage,
+        '/game': GamePage,
+      }).subscribe((match) => {
+          // match.$route - the route we matched, which is the matched entry from the arguments to route()
+          // match.$args - the args passed in the link
+          // match.$link - the full link data
+          console.log('Successfully matched route', match);
+        }, (nomatch) => {
+          // nomatch.$link - the full link data
+          console.error('Got a deeplink that didn\'t match', nomatch);
+        });
     });
   }
 

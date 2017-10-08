@@ -125,7 +125,7 @@ export class TeamDetailPage {
               this.userSettings.unfavouriteTeam(this.team);
               // TODO
               let toast = this.toastController.create({
-                message : "You have unfollowed this team",
+                message : "You have unfollowed this team!!!",
                 duration : 2000,
                 position : 'bottom'
               });
